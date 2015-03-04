@@ -1,0 +1,33 @@
+@(seriados: List[models.Seriado])
+
+@main("Meus Seriados") {
+	<div class="row" style="text-align: center;">
+      <div class="list-group">
+        <div class="panel panel-default">
+		   <h1 class="panel-title" style="font-size: xx-large;">Acompanhamento de Séries</h1>
+      </div>
+    </div>
+    
+    
+    <div class="row" style="text-align: center;">
+	  <div class="col-sm-3" style="left: 10%;">
+		<div class="panel panel-default">
+ 			<h1 class="panel-title" style="font-size: xx-large;">Todas as Séries</h1>
+ 		</div>
+ 	  </div>
+ 	</div>
+ 	
+ 	<div class="row" style="text-align: center;">
+	  <div class="col-sm-3" style="left: 10%;">
+		<div class="panel panel-default">
+		  <div class="dropdown">
+ 			@for(seriado <- seriados){
+ 				<h4 class="list-group-item-heading" >@seriado.getNome()</h4>
+ 			}
+ 			</div>
+ 		</div>
+ 	  </div>
+ 	</div>
+      
+</div>
+}
