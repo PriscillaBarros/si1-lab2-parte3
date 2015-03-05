@@ -1,33 +1,51 @@
 @(seriados: List[models.Seriado])
 
 @main("Meus Seriados") {
+	
+	
+		<div class="row" style="text-align: center;">
+	<div class="list-group">
+		<div class="panel panel-default">
+			<h1 class="panel-title" style="font-size: xx-large;">Acompanhamento de Séries</h1>
+		</div>
+	</div>
+
+
 	<div class="row" style="text-align: center;">
-      <div class="list-group">
-        <div class="panel panel-default">
-		   <h1 class="panel-title" style="font-size: xx-large;">Acompanhamento de Séries</h1>
-      </div>
-    </div>
-    
-    
-    <div class="row" style="text-align: center;">
-	  <div class="col-sm-3" style="left: 10%;">
-		<div class="panel panel-default">
- 			<h1 class="panel-title" style="font-size: xx-large;">Todas as Séries</h1>
- 		</div>
- 	  </div>
- 	</div>
- 	
- 	<div class="row" style="text-align: center;">
-	  <div class="col-sm-3" style="left: 10%;">
-		<div class="panel panel-default">
-		  <div class="dropdown">
- 			@for(seriado <- seriados){
- 				<h4 class="list-group-item-heading" >@seriado.getNome()</h4>
- 			}
- 			</div>
- 		</div>
- 	  </div>
- 	</div>
-      
-</div>
-}
+		<div class="col-sm-3" style="left: 10%;">
+			<div class="panel panel-default">
+				<h1 class="panel-title" style="font-size: xx-large;">Todas as Séries</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="list-group">
+		<div class="row" style="text-align: center;">
+			<div class="col-sm-3" style="left: 10%;">
+                    <ul class="list-group">
+                    @for(seriado <- seriados) {
+                        <li class="list-group-item">
+                            <form method="post" action="@routes.Application.listarEpisodios(seriado.getId())">
+                                <h4>@seriado.getNome()</h4>
+                            </form>
+                            <br>
+                            <ul class="list-group seasons">
+                            @for(temporada <- seriado.getTemporadas() ) {
+                                <li class="list-group-item" data-toggle="collapse" data-target="#episodes@temporada.getId()">
+                                    @temporada.getNumero()
+                                </li>
+                                    <div class="collapse" id="episodes@temporada.getId()">
+                                        @for(episodio <- temporada.getEpisodios) {
+                                            <li class="list-group-item">Episódio @episodio.getNumero(): @episodio.getTitulo</li>
+                                        }
+                                    </div>
+                            }
+                            </ul>
+                        </li>
+                    }
+                    </ul>
+                </div>
+		</div>
+	</div>
+    	
+} 

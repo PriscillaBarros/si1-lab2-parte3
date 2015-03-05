@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import models.Episodio;
 import models.Seriado;
 import dao.GenericDAO;
 import dao.GenericDAOImpl;
@@ -19,8 +20,13 @@ public class Application extends Controller {
     }
     
     @Transactional
-    public static Result listarEpisodios(String id) {
-		return TODO;
+    public static Result listarEpisodios(long id) {
+    	Episodio ep = dao.findByEntityId(Episodio.class, id);
+       // ep.setFollowing(true);
+        dao.merge(ep);
+        dao.flush();
+        return redirect(routes.Application.index());
+
     }
     
     private static Seriado getSeriado(Long id) {

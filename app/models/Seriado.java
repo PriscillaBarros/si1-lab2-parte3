@@ -108,9 +108,6 @@ public class Seriado {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	public String getIdString() {
-		return getId() + "";
-	}
+
 
 }
