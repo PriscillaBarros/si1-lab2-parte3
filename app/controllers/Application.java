@@ -16,26 +16,18 @@ public class Application extends Controller {
 
 	@Transactional
     public static Result index() {
-        return ok(views.html.index.render(getSeriados()));
+		List<Seriado> seriados = dao.findAllByClassName("Seriado");
+        return ok(views.html.index.render(seriados));
     }
     
     @Transactional
     public static Result listarEpisodios(long id) {
     	Episodio ep = dao.findByEntityId(Episodio.class, id);
-       // ep.setFollowing(true);
         dao.merge(ep);
         dao.flush();
         return redirect(routes.Application.index());
 
     }
-    
-    private static Seriado getSeriado(Long id) {
-		return getDAO().findByEntityId(Seriado.class, id);
-	}
-    
-    private static List<Seriado> getSeriados() {
-		return getDAO().findAllByClassName("Seriado");
-	}
     
     @Transactional
 	protected static void salvaObjeto(Object obj) {
@@ -43,9 +35,4 @@ public class Application extends Controller {
 		dao.merge(obj);
 		dao.flush();
 	}
-
-	protected static GenericDAO getDAO() {
-		return dao;
-	}
-
 }
