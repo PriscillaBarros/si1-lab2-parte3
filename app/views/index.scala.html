@@ -13,7 +13,7 @@
         <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
  		<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" rel="javascript" media="screen"></script>
  		<script src="@routes.Assets.at("javascripts/funcao.js")"></script>
-	<head>
+	</head>
 
 	<div class="row" style="text-align: center;">
 			<div class="panel panel-default">
@@ -23,31 +23,71 @@
 	
 
 	<div class="row" style="text-align: center;">
-    			<div class="col-sm-3" style="left: 10%;">
-    				<div class="panel panel-default">
-		    			<h1 class="panel-title" style="font-size: xx-large;">Todas as Séries</h1>
-		    			@for(seriado <- seriados){
-		    				<form method="post" action="@routes.Application.listarEpisodios(seriado.getId())">
-			    					<input type="hidden" name="id" value="@seriado.getId()">
-					        </form>
-		    				<div id="showHide" class="panel-heading span5 episodio">
-			    					<p class="unselectable">@seriado.getNome()</p>			    					
-			    			</div>
-		    				<ul class="lista list-group temps">			    				
-		    					@for(temporada <- seriado.getTemporadas()){
-		    						<div class="span5 eps">
-                                   			<p class="list-group-item">Temporada @temporada.getNumero() </p>
-                              		</div>
-                              		<ul class="lista list-group eps">	
-                              		@for(episodio <- temporada.getEpisodios()) {
-                                            <li class="list-group-item">Episódio @episodio.getNumero(): @episodio.getTitulo</li>
-                                    }
-                                    </ul>
+	<div class="col-sm-3" style="left: 10%;">
+		<div class="panel panel-default">
+			<h1 class="panel-title" style="font-size: xx-large;">Todas as Séries</h1>
+			@for(seriado <- seriados){
+				@if(!seriado.isAssistindo()){
+					<form method="post" action="@routes.Application.assistir(seriado.getId())">
+						<input type="hidden" name="id" value="@seriado.getId()">
+							<span class="pull-right">
+								<button type="submit" class="close" style=" margin-top: 8px; margin-right: 5px; color: #FF0000;">
+									<span class="glyphicon glyphicon-heart-empty" aria-hidden="true" color:="#FFFFFF"></span>
+								</button>
+							</span>
+					</form>
+					<div id="showHide" class="panel-heading span5 episodio">
+						<p class="unselectable">@seriado.getNome()</p>
+					</div>
+					<ul class="lista list-group temps">
+						@for(temporada <- seriado.getTemporadas()){
+						<div class="span5 eps">
+							<p class="list-group-item">Temporada @temporada.getNumero() </p>
+						</div>
+						<ul class="lista list-group eps">
+							@for(episodio <- temporada.getEpisodios()) {
+							<li class="list-group-item">Episódio @episodio.getNumero(): @episodio.getTitulo</li>
+							}
+						</ul>
+		
+						}
+					</ul>
+					}
+					
+			}
+		</div>
+	</div>
+	
+	<div class="col-sm-3" style="left: 40%;">
+		<div class="panel panel-default">
+			<h1 class="panel-title" style="font-size: xx-large;">Minhas Séries</h1>
+			@for(seriado <- seriados){
+				@if(seriado.isAssistindo()){
+					<form method="post" action="@routes.Application.assistir(seriado.getId())">
+						<input type="hidden" name="id" value="@seriado.getId()">
+					</form>
+					<div id="showHide" class="panel-heading span5 episodio">
+						<p class="unselectable">@seriado.getNome()</p>
+					</div>
+					<ul class="lista list-group temps">
+						@for(temporada <- seriado.getTemporadas()){
+						<div class="span5 eps">
+							<p class="list-group-item">Temporada @temporada.getNumero() </p>
+						</div>
+						<ul class="lista list-group eps">
+							@for(episodio <- temporada.getEpisodios()) {
+							<li class="list-group-item">Episódio @episodio.getNumero(): @episodio.getTitulo</li>
+							}
+						</ul>
+		
+						}
+					</ul>
+					}
+					
+			}
+		</div>
+	</div>
 
-		    					}
-		    				</ul>
-		    				
-		    			}
-    				</div>
-    			</div>
+	</div>
+
 }

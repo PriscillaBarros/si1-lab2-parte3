@@ -1,5 +1,5 @@
 /**
- * 
+ *  Função definida para listar e esconder temporadas e episódios
  */
 
 $(document).ready(function(){

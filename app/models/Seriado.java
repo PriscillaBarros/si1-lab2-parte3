@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,11 +18,16 @@ public class Seriado {
 	private long id;
 
 	private String nome;
+	
+	private boolean assistindo;
+	
+
 	@OneToMany
 	private List<Temporada> temporadas;
 
 	public Seriado() {
 		temporadas = new ArrayList<Temporada>();
+		setAssistindo(false);
 	}
 
 	public Seriado(String nome) throws Exception {
@@ -52,6 +59,14 @@ public class Seriado {
 		return episodios;
 	}
 
+	public boolean isAssistindo() {
+		return assistindo;
+	}
+	
+	public void setAssistindo(boolean assistindo) {
+		this.assistindo = assistindo;
+	}
+	
 	private Temporada getTemporadaPorNumero(int temporada) {
 		for (Temporada t : temporadas) {
 			if (t.getNumero() == temporada) {
@@ -108,5 +123,5 @@ public class Seriado {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 }

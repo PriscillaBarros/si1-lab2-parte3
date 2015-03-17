@@ -64,8 +64,7 @@ public class Global extends GlobalSettings {
 						tmpTemporada = adicionaTemporada(Integer.parseInt(numeroTemporada), tmpSeriado, tmpTemporada);
 						
 						
-						adicionaEpisodio(Integer.parseInt(numeroEpisodio), nomeEpisodio,
-								tmpSeriado, tmpTemporada);
+						adicionaEpisodio(Integer.parseInt(numeroEpisodio), nomeEpisodio, tmpSeriado, tmpTemporada);
 						scanner.nextLine();
 
 
@@ -101,9 +100,8 @@ public class Global extends GlobalSettings {
 				salvaObjeto(tmpSeriado);
 			}
 
-			private Temporada adicionaTemporada(int numeroTemporada,
-					Seriado tmpSeriado, Temporada tmpTemporada)
-					throws Exception {
+			private Temporada adicionaTemporada(int numeroTemporada, Seriado tmpSeriado, Temporada tmpTemporada)
+				throws Exception {
 				if (tmpTemporada == null || tmpTemporada.getNumero() != numeroTemporada) {
 					
 					tmpTemporada = new Temporada(numeroTemporada);
